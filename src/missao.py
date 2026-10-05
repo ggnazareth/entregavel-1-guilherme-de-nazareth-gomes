@@ -20,10 +20,12 @@ def duracao_usuario():
 
 def consumo_usuario():
     consumo_por_minuto = input("Consumo por minuto (em pontos percentuais): ")
-    consumo_por_minuto = consumo_por_minuto.replace("%","")
+    consumo_por_minuto = consumo_por_minuto.replace("%","").replace("/min","").replace("/m","")
     consumo_por_minuto = float(consumo_por_minuto)
     print(consumo_por_minuto)
     return consumo_por_minuto
+
+
 
 menu()
 bateria = bateria_usuario()
@@ -34,4 +36,15 @@ consumo = consumo_usuario()
 if bateria > 100 or bateria < 0 or duracao <= 0 or consumo <= 0:
     print("Valor(es) Inválido(s)")
 else:
-    print("Valores certos")
+    consumo_total = consumo * duracao
+    if bateria > consumo_total:
+        bateria_restante = bateria - consumo_total
+        print("A missão pode ser concluída!")
+        print("O consumo total foi de: ", consumo_total, "%")
+        print("A bateria restante será de: ", bateria_restante,"%")
+    elif bateria == consumo_total:
+        print("A missão pode ser concluída com 0% restante!")
+        print("O consumo total foi de: ", consumo_total, "%")
+    else:
+        bateria_faltante = consumo_total - bateria
+        print("A missão não pode ser concluída, serão necessários mais", bateria_faltante, "%")

@@ -3,11 +3,35 @@ def menu():
     print("Bem vindo! O programa a seguir verificará se um robô tem energia suficiente para realizar uma missão.")
     print("Por favor, insira os valores numéricos a seguir para prosseguir")
 
-def solicitar_usuario():
+
+def bateria_usuario():
     bateria_atual = input("Bateria atual (em porcentagem, de 0-100): ")
+    bateria_atual = bateria_atual.replace("%","")
+    bateria_atual = float(bateria_atual)
+    print(bateria_atual)
+    return bateria_atual
+
+def duracao_usuario():
     duracao_missao = input("Duração da missão (minutos): ")
+    duracao_missao = duracao_missao.lower().replace("minutos","").replace("min","").replace("m","")
+    duracao_missao = float(duracao_missao)
+    print(duracao_missao)
+    return duracao_missao
+
+def consumo_usuario():
     consumo_por_minuto = input("Consumo por minuto (em pontos percentuais): ")
-    return bateria_atual, duracao_missao, consumo_por_minuto
+    consumo_por_minuto = consumo_por_minuto.replace("%","")
+    consumo_por_minuto = float(consumo_por_minuto)
+    print(consumo_por_minuto)
+    return consumo_por_minuto
 
 menu()
-solicitar_usuario()
+bateria = bateria_usuario()
+duracao = duracao_usuario()
+consumo = consumo_usuario()
+
+
+if bateria > 100 or bateria < 0 or duracao <= 0 or consumo <= 0:
+    print("Valor(es) Inválido(s)")
+else:
+    print("Valores certos")
